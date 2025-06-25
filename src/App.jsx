@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { db } from './firebaseConfig';
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, QuerySnapshot } from 'firebase/firestore';
 import { Bar } from 'react-chartjs-2';
-import { Chart as Chartjs, CategoryScale, LinearScale, barElement, Title } from 'chart.js';
-ChartJS.register(CategoryScale, LinearScale, barElement, Title);
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title);
 
 function App() {
   const [name, setName] = useState("");
