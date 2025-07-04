@@ -48,7 +48,7 @@ function App() {
     labels: users.map((user) => user.name),
     datasets: [
       {
-        label: "Edda",
+        label: "Edad",
         data: users.map((user) => user.age),
         backgroundColor: "blue",
       },
@@ -67,13 +67,13 @@ function App() {
       )}
       <ul>
         {users.map((user) => {
-          return (
+          
           <li key={user.id}>
             {user.name} - {user.gae} años
             <button onClick={() => { setName(user.name); setAge(user.age); setEditingId(user.id); }}>Editar</button>
             <button onClick={() => { deleteUser(user.id); }}>Eliminar</button>
             </li>
-          )
+          
         })}
       </ul>
 
