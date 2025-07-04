@@ -11,6 +11,10 @@ function App() {
   const [users, setUsers] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   const fetchUsers = async () => {
     const querySnapshot = await getDocs(collection(db, "users"));
     setUsers(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
@@ -40,9 +44,7 @@ function App() {
     fetchUsers();
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
 
   const chartData = {
     labels: users.map((user) => user.name),
@@ -60,24 +62,27 @@ function App() {
       <h1>CRUD con Firebase y Reportes</h1>
       <input type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Nombre' />
       <input type='number' value={age} onChange={(e) => setAge(e.target.value)} placeholder='Edad' />
+
       {editingId ? (
         <button onClick={updateUser}>Actualizar</button>
       ) : (
-        <button onClick={addUser}>Actualizar</button>
+          <button onClick={addUser}>Agregar</button>
       )}
+
       <ul>
         {users.map((user) => {
-          
+          return (
           <li key={user.id}>
-            {user.name} - {user.gae} años
-            <button onClick={() => { setName(user.name); setAge(user.age); setEditingId(user.id); }}>Editar</button>
-            <button onClick={() => { deleteUser(user.id); }}>Eliminar</button>
+              {user.name} - {user.age} años
+              <button onClick={() => { setName(user.name); setAge(user.age); setEditingId(user.id); }}>Editar</button>
+              <button onClick={() => deleteUser(user.id)}>Eliminar</button>
             </li>
-          
+          )
         })}
       </ul>
 
       <h2>Reporte de Edades</h2>
+
       <Bar data={chartData} />
     </div>
   );
